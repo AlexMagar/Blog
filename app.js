@@ -15,6 +15,11 @@ const app = express();
 
 app.set("view engine", "ejs");
 
+//send text to browser
+app.get("/", function(req, res){
+    res.render("home", {homeContent: homeStartingContent});
+});
+
 //load the file contain in public folder
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));

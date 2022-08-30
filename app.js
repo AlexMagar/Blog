@@ -15,19 +15,39 @@ const app = express();
 
 app.set("view engine", "ejs");
 
-//send text to browser
+//home route
 app.get("/", function(req, res){
     res.render("home", {homeContent: homeStartingContent});
+    // res.render("about", {aboutContents: aboutContent});
+    // res.render("/contact", {contactContents: contactContent});
+
+});
+
+//about route
+app.get("/about", function(req, res){
+    res.render("about", {aboutContents: aboutContent });
+});
+
+//contact route
+app.get("/contact", function(req, res){
+    res.render("contact", {contactContents: contactContent});
 });
 
 //load the file contain in public folder
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get("/", function(req, res){
-    res.render("home");
-});
+// app.get("/", function(req, res){
+//     res.render("home");
+// });
 
+// app.get("/about", function(req, res){
+//     res.render("about");
+// });
+
+// app.get("/contact", function(req, res){
+//     res.render("/contact");
+// });
 
 
 //listen to port 3000

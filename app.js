@@ -62,6 +62,11 @@ app.get("/compose", function(req, res){
     res.render("compose");
 });
 
+//post route
+app.get("/post", function(req, res){
+    res.render("post");
+});
+
 
 app.post("/compose", function(req, res){ 
     const post = {

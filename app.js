@@ -4,6 +4,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+var _ = require("lodash");
 
 let items = [];
 
@@ -29,6 +30,21 @@ app.get("/", function(req, res){
     // res.render("about", {aboutContents: aboutContent});
     // res.render("/contact", {contactContents: contactContent});
 
+});
+
+//trap route parameters
+app.get("/posts/:postName", function(req, res){
+    let requestedTitle = _.lowerCase(req.params.postName);
+    items.forEach(function(item){
+        const storedTitle = _.lowerCase(item.title);
+
+        if(storedTitle === requestedTitle){
+            res.render("post",{
+                postTitle: item.title,
+                postDesc: item.content
+            });
+        }
+    });
 });
 
 //about route

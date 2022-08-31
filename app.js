@@ -5,6 +5,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 
+let items = [];
 
 const homeStartingContent ="Something for now";
 const aboutContent = "Also something for now";
@@ -21,7 +22,10 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 //home route
 app.get("/", function(req, res){
-    res.render("home", {homeContent: homeStartingContent});
+    res.render("home", {
+        homeContent: homeStartingContent, 
+        posts: items
+    });
     // res.render("about", {aboutContents: aboutContent});
     // res.render("/contact", {contactContents: contactContent});
 
@@ -42,10 +46,15 @@ app.get("/compose", function(req, res){
     res.render("compose");
 });
 
-app.post("/compose", function(req, res){
-    let item = req.body.blog;
-    console.log(item);
-    res.redirect("/");
+
+app.post("/compose", function(req, res){ 
+    const post = {
+        title: req.body.singleLineText,
+        content: req.body.multiLineText
+    };
+
+    items.push(post);    
+    res.redirect("/"); //redirect to home route
 });
 
 
